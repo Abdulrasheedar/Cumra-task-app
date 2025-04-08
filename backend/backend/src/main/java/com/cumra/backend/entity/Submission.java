@@ -3,6 +3,7 @@ package com.cumra.backend.entity;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class Submission {
 	
 	@ManyToOne
 	@JoinColumn(name="user_id", nullable=false)
-	@JsonBackReference
+	@JsonIgnore
 	private User user;
 	
 	private Instant createdAt;

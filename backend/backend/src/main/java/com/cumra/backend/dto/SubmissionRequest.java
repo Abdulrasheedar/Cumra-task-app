@@ -1,6 +1,5 @@
 package com.cumra.backend.dto;
 
-import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
 

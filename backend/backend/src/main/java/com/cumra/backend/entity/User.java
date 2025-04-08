@@ -36,7 +36,6 @@ public class User{
 	
 	 // Relationship: One User can have many Submissions
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true)
-    @JsonManagedReference
     private List<Submission> submissions = new ArrayList<>();
     
     

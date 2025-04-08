@@ -1,5 +1,4 @@
 package com.cumra.backend.dto;
-import java.util.List;
 
 import lombok.*;
 
