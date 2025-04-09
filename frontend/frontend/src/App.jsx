@@ -6,7 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 
 const App=() =>{
-
+return(
   <BrowserRouter>
     <AuthProvider>
       <Routes>
@@ -16,6 +16,7 @@ const App=() =>{
       </Routes>
     </AuthProvider>
   </BrowserRouter>
+  );
 }
 
 export default App

@@ -56,7 +56,8 @@ public class SecurityConfig {
         // We create our JWT filter instance (defined below) 
         JwtAuthTokenFilter jwtFilter = new JwtAuthTokenFilter(jwtUtils, userDetailsService);
         
-        http.csrf(csrf -> csrf.disable())   // disable CSRF for API
+        http.cors() 
+        .and().csrf(csrf -> csrf.disable())   // disable CSRF for API
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // no HTTP session
             .exceptionHandling(eh -> eh.authenticationEntryPoint(unauthorizedHandler))  // handle auth errors
             .authorizeHttpRequests(auth -> {

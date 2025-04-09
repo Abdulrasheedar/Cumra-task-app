@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Container, Form, Button, Card } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext'; // ✅ must be added
 
 
 const SubmissionsPage = () => {
