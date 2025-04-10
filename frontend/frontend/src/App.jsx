@@ -12,6 +12,9 @@ import Dasboard from './pages/Dasboard';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
+import AdminRoute from './components/AdminRoute';
+import UserRoute from './components/UserRoute';
+import ManageUsersPage from './pages/ManageUsersPage';
 
 
 const App=() =>{
@@ -25,9 +28,10 @@ return(
       <Routes>
         <Route path="/login" element={<LoginPage/>} />
         <Route path="signup" element={<SignUpPage/>} />
-        <Route path="/submissions" element = {<PrivateRoute><SubmissionsPage /></PrivateRoute>} />
+        <Route path="/submissions" element = {<UserRoute><SubmissionsPage /></UserRoute>} />
         <Route path="/viewsubmissions" element = {<PrivateRoute><ViewSubmissionsPage /></PrivateRoute>} />
         <Route path="/dashboard" element = {<PrivateRoute><Dasboard /></PrivateRoute>} />
+        <Route path="/manageusers" element = {<AdminRoute><ManageUsersPage /></AdminRoute>} />
 
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>

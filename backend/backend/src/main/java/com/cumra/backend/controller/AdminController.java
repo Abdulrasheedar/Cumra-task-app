@@ -1,19 +1,28 @@
 package com.cumra.backend.controller;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cumra.backend.dto.MessageResponse;
+import com.cumra.backend.dto.SubmissionRequest;
+import com.cumra.backend.dto.SubmissionResponse;
+import com.cumra.backend.dto.UpdateUserRolesRequest;
 import com.cumra.backend.dto.UserResponse;
+import com.cumra.backend.entity.Role;
 import com.cumra.backend.entity.Submission;
 import com.cumra.backend.entity.User;
 import com.cumra.backend.repository.RoleRepository;
@@ -54,9 +63,77 @@ public class AdminController {
     
     // Get all submissions (from all users)
     @GetMapping("/submissions")
-    public List<Submission> listAllSubmissions() {
-        return submissionRepo.findAll();
+    public List<SubmissionResponse> listAllSubmissions() {
+        return submissionRepo.findAll().stream()
+            .map(sub -> new SubmissionResponse(
+                sub.getId(),
+                sub.getTitle(),
+                sub.getContent(),
+                sub.getUser().getId(), // extract only user_id
+                sub.getCreatedAt()
+            ))
+            .toList();
     }
+    //update user role
+    @PutMapping("/users/roles/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> updateUserRoles(
+            @PathVariable Long id,
+            @RequestBody UpdateUserRolesRequest request) {
+
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Role> roles = roleRepo.findAllById(request.getRoleIds());
+
+        if (roles.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid role IDs provided.");
+        }
+
+        // Prevent admin from removing their own admin access
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = auth.getName();
+
+        if (user.getUsername().equals(currentUsername) &&
+            request.getRoleIds().stream().noneMatch(roleId -> roleId == 2L)) {
+            return ResponseEntity.badRequest().body("You cannot remove your own admin role.");
+        }
+
+        user.setRoles(new HashSet<>(roles));
+        userRepo.save(user);
+
+        return ResponseEntity.ok("User roles updated successfully.");
+    }
+
+
+
+    @PutMapping("/submissions/{id}")
+    public ResponseEntity<?> updateSubmission(
+            @PathVariable Long id,
+            @RequestBody SubmissionRequest request,
+            Authentication authentication) {
+
+        Submission submission = submissionRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Submission not found"));
+
+        // Check if user is admin
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+
+        // Only allow if admin OR user owns the submission
+        if (!isAdmin && !submission.getUser().getUsername().equals(authentication.getName())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(new MessageResponse("You can only update your own submissions"));
+        }
+
+        submission.setTitle(request.getTitle());
+        submission.setContent(request.getContent());
+        submissionRepo.save(submission);
+
+        return ResponseEntity.ok(new MessageResponse("Submission updated successfully"));
+    }
+
+    
     
     // Delete any submission by ID
     @DeleteMapping("/submissions/{id}")

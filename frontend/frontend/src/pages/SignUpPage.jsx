@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import image from "../assets/Signup.png"; // same image used in login page
-
+import axios from "axios";
 const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -13,7 +13,13 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Your API call here (e.g., POST to /api/auth/signup)
+      console.log(username, email, password);
+      const res = await axios.post("http://localhost:8080/api/auth/signup", {
+        username,
+        email,
+        password,
+      });
+      console.log("signup response: ",res);
       console.log({ username, email, password });
       navigate("/login"); // redirect to login after success
     } catch (err) {
@@ -39,7 +45,6 @@ const SignUpPage = () => {
           boxShadow: "0 0 10px rgba(0,0,0,0.1)",
         }}
       >
-        {/* Image Section */}
         <div className="w-100 w-lg-50">
           <img
             src={image}
