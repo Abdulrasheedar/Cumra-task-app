@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 
 const ManageUsersPage = () => {
   const { role } = useAuth();
-  const { users, getUsers, deleteUser, promoteToAdmin } =
+  const { users, getUsers, deleteUser, promoteToAdmin, toggleAdminRole } =
     useContext(SubmissionsContext);
 
   useEffect(() => {
@@ -59,38 +59,9 @@ const ManageUsersPage = () => {
               </tr>
             </thead>
             <tbody>
-              {/* {users && users.length > 0 ? (
-                users.map((user) => (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>
-                    <button
-                    className="btn btn-warning btn-sm"
-                    disabled={isAdmin}
-                    onClick={() => promoteToAdmin(user.id)}
-                  >
-                    {isAdmin ? "Already Admin" : "Promote to Admin"}
-                  </button>
-                    </td>
-                    <td>
-                      <i
-                        className="fa-solid fa-trash text-danger"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleDelete(user.id)}
-                      ></i>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4">No users found.</td>
-                </tr>
-              )} */}
               {users && users.length > 0 ? (
                 users.map((user) => {
-                  const isAdmin = user.roles.includes("ROLE_ADMIN"); // ✅ define this per user
+                  const isAdmin = user.roles.includes("ROLE_ADMIN");
 
                   return (
                     <tr key={user.id}>
@@ -98,13 +69,19 @@ const ManageUsersPage = () => {
                       <td>{user.username}</td>
                       <td>{user.email}</td>
                       <td>
-                        <button
+                        {/* <button
                           className="btn btn-warning btn-sm"
                           disabled={isAdmin}
                           onClick={() => promoteToAdmin(user.id)}
                         >
                           {isAdmin ? "Already Admin" : "Promote to Admin"}
-                        </button>
+                        </button> */}
+                        <button
+            className={`btn btn-sm ${isAdmin ? "btn-secondary" : "btn-warning"}`}
+            onClick={() => toggleAdminRole(user.id, user.roles)}
+          >
+            {isAdmin ? "Demote to User" : "Promote to Admin"}
+          </button>
                       </td>
                       <td>
                         <i

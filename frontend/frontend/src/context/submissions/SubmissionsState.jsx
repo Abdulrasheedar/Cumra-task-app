@@ -147,6 +147,40 @@ const promoteToAdmin = async (userId) => {
   }
 };
 
+const toggleAdminRole = async (userId, currentRoles) => {
+  if (role === "ROLE_ADMIN") {
+    const isAdmin = currentRoles.includes("ROLE_ADMIN");
+    const newRoleIds = isAdmin ? [1] : [2]; // 1 = ROLE_USER, 2 = ROLE_ADMIN
+
+    const url = `${host}/api/admin/users/roles/${userId}`;
+    const headers = new Headers();
+    headers.set("Authorization", `Bearer ${token}`);
+    headers.set("Content-Type", "application/json");
+
+    const body = JSON.stringify({ roleIds: newRoleIds });
+
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: headers,
+      body: body,
+    });
+
+    const result = await response.text();
+    console.log("Toggle role response:", result);
+
+    // Update local state (optional: you can just call getUsers instead)
+    let updatedUsers = JSON.parse(JSON.stringify(users));
+    for (let i = 0; i < updatedUsers.length; i++) {
+      if (updatedUsers[i].id === userId) {
+        updatedUsers[i].roles = isAdmin ? ["ROLE_USER"] : ["ROLE_ADMIN"];
+        break;
+      }
+    }
+
+    setUsers(updatedUsers);
+  }
+};
+
 
 
   //USERS's API calls
@@ -218,7 +252,7 @@ setText(newTexts);
   return (
     <SubmissionsContext.Provider value={{text, getText, 
     deleteText, editText, getUsers, users, submissions,
-     getSubmissions, deleteSubmissions,editSubmission, deleteUser, promoteToAdmin}}>
+     getSubmissions, deleteSubmissions,editSubmission, deleteUser, promoteToAdmin, toggleAdminRole}}>
         {props.children}
     </SubmissionsContext.Provider>
   )
