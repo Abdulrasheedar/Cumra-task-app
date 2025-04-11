@@ -3,7 +3,7 @@ import SubmissionsContext from './SubmissionsContext';
 import { useAuth } from '../../context/AuthContext';
 
 const SubmissionsState = (props) => {
-    const host = "http://localhost:8080";
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
     const textIntial = [];
     const [text, setText] = useState(textIntial);
     const usersIntial =[];
@@ -18,7 +18,7 @@ const SubmissionsState = (props) => {
   const getUsers = async () => {
     //Api call
        if(role==="ROLE_ADMIN"){
-         const url = `${host}/api/admin/users`;
+         const url = `${baseURL}/admin/users`;
         const headers = new Headers();
         headers.set("Authorization", `Bearer ${token}`);
       
@@ -32,7 +32,7 @@ const SubmissionsState = (props) => {
    //delete user by admin
    const deleteUser = async (id) =>{
     if(role==="ROLE_ADMIN"){
-    const url = `${host}/api/admin/users/${id}`;
+    const url = `${baseURL}/admin/users/${id}`;
     const headers = new Headers();
     headers.set("Authorization", `Bearer ${token}`);
     headers.set("Content-Type", "application/json");
@@ -50,7 +50,7 @@ const SubmissionsState = (props) => {
    const getSubmissions = async () => {
     //Api call
     if(role==="ROLE_ADMIN"){
-        const url = `${host}/api/admin/submissions`;
+        const url = `${baseURL}/admin/submissions`;
         const headers = new Headers();
         headers.set("Authorization", `Bearer ${token}`);
       
@@ -65,7 +65,7 @@ const SubmissionsState = (props) => {
 //Delete submissions by admin
 const deleteSubmissions = async (id) => {
   if(role==="ROLE_ADMIN"){
-  const url = `${host}/api/admin/submissions/${id}`;
+  const url = `${baseURL}/admin/submissions/${id}`;
   const headers = new Headers();
   headers.set("Authorization", `Bearer ${token}`);
   headers.set("Content-Type", "application/json");
@@ -83,7 +83,7 @@ const deleteSubmissions = async (id) => {
 //Edit a submission by admin
 const editSubmission = async (id, title, content) => {
   if(role==="ROLE_ADMIN"){
-  const url = `${host}/api/admin/submissions/${id}`;
+  const url = `${baseURL}/admin/submissions/${id}`;
   const headers = new Headers();
   headers.set("Authorization", `Bearer ${token}`);
   headers.set("Content-Type", "application/json");
@@ -118,7 +118,7 @@ const toggleAdminRole = async (userId, currentRoles) => {
     const isAdmin = currentRoles.includes("ROLE_ADMIN");
     const newRoleIds = isAdmin ? [1] : [2]; // 1 = ROLE_USER, 2 = ROLE_ADMIN
 
-    const url = `${host}/api/admin/users/roles/${userId}`;
+    const url = `${baseURL}/admin/users/roles/${userId}`;
     const headers = new Headers();
     headers.set("Authorization", `Bearer ${token}`);
     headers.set("Content-Type", "application/json");
@@ -153,7 +153,7 @@ const toggleAdminRole = async (userId, currentRoles) => {
    //get all user submissions
    const getText = async () => {
     //Api call
-        const url = `${host}/api/user/submissions`;
+        const url = `${baseURL}/user/submissions`;
         const headers = new Headers();
         headers.set("Authorization", `Bearer ${token}`);
       
@@ -168,7 +168,7 @@ const toggleAdminRole = async (userId, currentRoles) => {
 //Update a submission
 const editText = async (id, title, content) => {
   //Api call
-  const url = `${host}/api/user/submissions/${id}`;
+  const url = `${baseURL}/user/submissions/${id}`;
   const headers = new Headers();
   headers.set("Authorization", `Bearer ${token}`);
   headers.set("Content-Type", "application/json");  // Set the content type to JSON
@@ -198,7 +198,7 @@ const editText = async (id, title, content) => {
 //Delete a user submission
 const deleteText = async(id) => {
 
-  const url = `${host}/api/user/submissions/${id}`;
+  const url = `${baseURL}/user/submissions/${id}`;
   const headers = new Headers();
   headers.set("Authorization", `Bearer ${token}`);
   headers.set("Content-Type", "application/json");  

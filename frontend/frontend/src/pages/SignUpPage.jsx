@@ -9,10 +9,11 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   //Password validations
   const validateInputs = () => {
-
+    
     const errors = [];
 
     if (!/^[a-zA-Z0-9_]{4,}$/.test(username)) {
@@ -66,7 +67,7 @@ const SignUpPage = () => {
 
     try {
       console.log(username, email, password);
-      const res = await axios.post("http://localhost:8080/api/auth/signup", {
+      const res = await axios.post(`${baseURL}/auth/signup`, {
         username,
         email,
         password,

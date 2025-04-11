@@ -9,9 +9,9 @@ const SubmissionsPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
   const fetchSubmissions = async () => {
-    const res = await axios.get("http://localhost:8080/api/user/submissions", {
+    const res = await axios.get(`${baseURL}/user/submissions`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setSubmissions(res.data);
@@ -25,7 +25,7 @@ const SubmissionsPage = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:8080/api/user/submissions",
+        `${baseURL}/user/submissions`,
         { title, content },
         { headers: { Authorization: `Bearer ${token}` } }
       );

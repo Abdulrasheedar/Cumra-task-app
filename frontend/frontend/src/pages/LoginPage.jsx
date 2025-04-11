@@ -5,17 +5,18 @@ import { useAuth } from "../context/AuthContext";
 import { Form, Button, Alert } from "react-bootstrap";
 import image from "../assets/Login.png";
 
+
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
-
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/login", {
+      const res = await axios.post(`${baseURL}/auth/login`, {
         username,
         password,
       });
