@@ -106,3 +106,8 @@ It allows:
 
 ### Login Page
 ![Login Page](./screenshots/Login.jpg)
+
+### Signup Page
+![Signup Page](./screenshots/Signup.jpg)
+
+### User Portal
