@@ -90,3 +90,12 @@ User	| testuser	| User@1234
 2. POST /api/user/submissions
 3. PUT /api/user/submissions/{id}
 4. DELETE /api/user/submissions/{id}
+
+### Admin Endpoints
+
+1. GET /api/admin/users
+2. PUT /api/admin/users/roles/{id}
+3. DELETE /api/admin/users/{id}
+4. GET /api/admin/submissions
+5. PUT /api/admin/submissions/{id}
+6. DELETE /api/admin/submissions/{id}
