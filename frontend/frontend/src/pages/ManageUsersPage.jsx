@@ -4,8 +4,9 @@ import { useAuth } from "../context/AuthContext";
 
 const ManageUsersPage = () => {
   const { role } = useAuth();
-  const { users, getUsers, deleteUser, promoteToAdmin, toggleAdminRole } =
+  const { users, getUsers, deleteUser, toggleAdminRole } =
     useContext(SubmissionsContext);
+    const { userId } = useAuth();
 
   useEffect(() => {
     getUsers();
@@ -54,7 +55,7 @@ const ManageUsersPage = () => {
                 <th>ID</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Role</th>
+                <th>Update Role</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -69,19 +70,15 @@ const ManageUsersPage = () => {
                       <td>{user.username}</td>
                       <td>{user.email}</td>
                       <td>
-                        {/* <button
-                          className="btn btn-warning btn-sm"
-                          disabled={isAdmin}
-                          onClick={() => promoteToAdmin(user.id)}
-                        >
-                          {isAdmin ? "Already Admin" : "Promote to Admin"}
-                        </button> */}
                         <button
-            className={`btn btn-sm ${isAdmin ? "btn-secondary" : "btn-warning"}`}
-            onClick={() => toggleAdminRole(user.id, user.roles)}
-          >
-            {isAdmin ? "Demote to User" : "Promote to Admin"}
-          </button>
+                          className={`btn btn-sm ${
+                            isAdmin ? "btn-secondary" : "btn-warning"
+                          }`}
+                          onClick={() => toggleAdminRole(user.id, user.roles)}
+                          disabled={user.username === localStorage.getItem("username")}
+                        >
+                          {isAdmin ? "Demote to User" : "Promote to Admin"}
+                        </button>
                       </td>
                       <td>
                         <i
