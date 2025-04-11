@@ -33,8 +33,9 @@ It allows:
    git clone https://github.com/your-username/cumra-task-app.git
    cd backend
 2. Configure DB & JWT in application.properties:
+   
    spring.application.name=backend
-   ##### Database Config
+   #### Database Config
    spring.datasource.url=jdbc:mysql://localhost:3306/cumrataskapp
    spring.datasource.username=root
    spring.datasource.password=yourpassword
@@ -43,17 +44,17 @@ It allows:
    spring.jpa.show-sql=true
    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
-   **Server Port**
+   #### Server Port
    server.port=8080
 
-   **JWT Secret (Placeholder)**
+   #### JWT Secret (Placeholder)
    app.jwtSecret = CumraSecureJWTKey_AdminUserDataFlow123456!
    app.jwtExpirationsMs = 86400000
 
-   **CORS**
+   #### CORS
    spring.web.cors.allowed-origins=http://localhost:5173
 
-3. Run the backend:
+4. Run the backend:
    ./mvnw spring-boot:run
 
 
