@@ -71,4 +71,22 @@ It allows:
 4. Start the frontend:
    npm run dev
 
+## Test Credentials
 
+Role	| Username  | Password
+Admin	| adminuser	| Admin@123
+User	| testuser	| User@1234
+
+## API Overview
+
+### Auth
+
+1. POST /api/auth/signup – Register
+2. POST /api/auth/login – Login (returns JWT)
+
+### User Endpoints
+
+1. GET /api/user/submissions
+2. POST /api/user/submissions
+3. PUT /api/user/submissions/{id}
+4. DELETE /api/user/submissions/{id}
