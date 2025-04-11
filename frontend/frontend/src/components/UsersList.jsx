@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import submissionsContext from "../context/submissions/SubmissionsContext";
+import React from "react";
 
 const UserList = (props) => {
-  const context = useContext(submissionsContext);
-  const { getUsers } = context;
   const {users} = props;
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -102,9 +102,9 @@ const LoginPage = () => {
         </div>
 
         <div className="d-flex justify-content-center">
-          <a href="/signup" className="btn btn-light px-5">
+          <Link to="/signup" className="btn btn-light px-5">
             Sign Up
-          </a>
+          </Link>
         </div>
 
         {error && (

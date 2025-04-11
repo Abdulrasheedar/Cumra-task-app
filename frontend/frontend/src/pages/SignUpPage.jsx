@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import image from "../assets/Signup.png"; // same image used in login page
 import axios from "axios";
+import { validateSignup } from "../utils/Validation";
+
 const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -11,54 +13,10 @@ const SignUpPage = () => {
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
-  //Password validations
-  const validateInputs = () => {
-    
-    const errors = [];
-
-    if (!/^[a-zA-Z0-9_]{4,}$/.test(username)) {
-      errors.push(
-        "Username must be at least 4 characters and only contain letters, numbers, or underscores."
-      );
-    }
-    if (!email.includes("@")) {
-      errors.push("Invalid email format.");
-    }
-    if (password.length < 8) {
-      errors.push("Password must be at least 8 characters.");
-    }
-    if (!/[A-Z]/.test(password)) {
-      errors.push("Password must contain an uppercase letter.");
-    }
-    if (!/[a-z]/.test(password)) {
-      errors.push("Password must contain a lowercase letter.");
-    }
-    if (!/[0-9]/.test(password)) {
-      errors.push("Password must contain a digit.");
-    }
-    if (!/[!@#$%^&*]/.test(password)) {
-      errors.push("Password must contain a special character (!@#$%^&*).");
-    }
-     // Email validation (only accept gmail, yahoo, outlook)
-     const allowedDomains = ["gmail.com", "yahoo.com", "outlook.com"];
-     const emailDomain = email.split("@")[1];
- 
-     if (
-       !email ||
-       !email.includes("@") ||
-       !allowedDomains.includes(emailDomain)
-     ) {
-       errors.push(
-         "Email must be a valid address ending in @gmail.com, @yahoo.com, or @outlook.com."
-       );
-     }
-    return errors;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const validationErrors = validateInputs();
+    const validationErrors = validateSignup({ username, email, password });
 
     if (validationErrors.length > 0) {
       setError(validationErrors.join("\n"));
@@ -75,8 +33,7 @@ const SignUpPage = () => {
       console.log("res: ", res);
       console.log({ username, email, password });
       navigate("/login"); // redirect to login after success
-    } 
-    catch (err) {
+    } catch (err) {
       if (err.response && err.response.data) {
         const errorData = err.response.data;
         const errorMsg = Array.isArray(errorData)
@@ -87,7 +44,6 @@ const SignUpPage = () => {
         setError("Something went wrong during signup.");
       }
     }
-    
   };
 
   return (
@@ -175,11 +131,10 @@ const SignUpPage = () => {
             </div>
 
             <div className="d-flex justify-content-center">
-              <a href="/login" className="btn btn-light px-5">
+              <Link to="/login" className="btn btn-light px-5">
                 Login
-              </a>
+              </Link>
             </div>
-
             {error && (
               <Alert variant="danger" className="mt-3">
                 {error}

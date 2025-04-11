@@ -10,12 +10,13 @@ const SubmissionsItems = (props) => {
   const id = text?.id;
   const title = text?.title;
   const content = text?.content;
+  const isAdmin = role==="ROLE_ADMIN";
 
   return (
     <div className="col-md-6 col-lg-4 mb-4">
       <div className="card shadow-sm">
         <div className="card-body">
-        {role=="ROLE_ADMIN" && <h5 className="card-title">{username}'s data</h5>}
+        {isAdmin && <h5 className="card-title"><b>{username}'s data</b></h5>}
           <div className="d-flex justify-content-between align-items-center">
             
             <h5 className="card-title">{title}</h5>
@@ -24,7 +25,7 @@ const SubmissionsItems = (props) => {
                 className="fa-solid fa-trash mx-2 text-danger"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  {role=="ROLE_ADMIN"? deleteSubmissions(id) :deleteText(id);}
+                  {isAdmin ? deleteSubmissions(id) :deleteText(id);}
                   onDeleteAlert && onDeleteAlert();
                 }}
               ></i>
@@ -32,7 +33,7 @@ const SubmissionsItems = (props) => {
                 className="fa-solid fa-pen-to-square mx-2 text-primary"
                 style={{ cursor: "pointer" }}
                 onClick={() => 
-                  {role=="ROLE_ADMIN" ? updateSubmission({ id, title, content }) :updateText({ id, title, content }) }
+                  {isAdmin ? updateSubmission({ id, title, content }) :updateText({ id, title, content }) }
                 
                 }
               ></i>
