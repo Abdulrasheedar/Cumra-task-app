@@ -110,4 +110,7 @@ It allows:
 ### Signup Page
 ![Signup Page](./screenshots/Signup.jpg)
 
-### User Portal
+## User Portal
+
+### User Dashboard
+![UserDashboard Page](./screenshots/UserDashboard.jpg)
