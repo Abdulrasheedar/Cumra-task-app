@@ -114,3 +114,7 @@ It allows:
 
 ### User Dashboard
 ![UserDashboard Page](./screenshots/UserDashboard.jpg)
+
+### User New Submission Page
+![UserNewSubmission Page](./screenshots/UserNewSubmission.jpg)
+
