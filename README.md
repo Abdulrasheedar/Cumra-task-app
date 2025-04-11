@@ -100,3 +100,9 @@ It allows:
 4. GET /api/admin/submissions
 5. PUT /api/admin/submissions/{id}
 6. DELETE /api/admin/submissions/{id}
+
+
+## Screenshots
+
+### Login Page
+![Login Page](./screenshots/Login.jpg)
