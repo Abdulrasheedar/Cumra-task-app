@@ -123,6 +123,10 @@ It allows:
 ### User Manage Submission Page
 ![UserManageSubmissions Page](./screenshots/UserManageSubmissions.jpg)
 
+### User Edit Submission Popup
+![EditSubmission Page](./screenshots/EditSubmission.jpg)
+
+
 
 ## Admin Portal
 
@@ -131,6 +135,9 @@ It allows:
 
 ### Admin Manage Submissions Page
 ![AdminManageSubmissions Page](./screenshots/AdminManageSubmissions.jpg)
+
+### Admin Edit Submission Popup
+![EditSubmission Page](./screenshots/EditSubmission.jpg)
 
 ### Admin Manage Users Page
 ![AdminManageUsers Page](./screenshots/AdminManageUsers.jpg)
