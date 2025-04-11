@@ -146,9 +146,6 @@ It allows:
 
 [Click here to watch the demo](https://youtu.be/QY6sCpnSrL0)
 
-## 🎥 Demo Video
-
-[![Watch the Demo](./screenshots/youtube.png)](https://youtu.be/QY6sCpnSrL0)
 
 
 
