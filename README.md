@@ -104,6 +104,8 @@ It allows:
 
 ## Screenshots
 
+## Authentication
+
 ### Login Page
 ![Login Page](./screenshots/Login.jpg)
 
