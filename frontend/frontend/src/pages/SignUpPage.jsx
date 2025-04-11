@@ -10,8 +10,60 @@ const SignUpPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  //Password validations
+  const validateInputs = () => {
+
+    const errors = [];
+
+    if (!/^[a-zA-Z0-9_]{4,}$/.test(username)) {
+      errors.push(
+        "Username must be at least 4 characters and only contain letters, numbers, or underscores."
+      );
+    }
+    if (!email.includes("@")) {
+      errors.push("Invalid email format.");
+    }
+    if (password.length < 8) {
+      errors.push("Password must be at least 8 characters.");
+    }
+    if (!/[A-Z]/.test(password)) {
+      errors.push("Password must contain an uppercase letter.");
+    }
+    if (!/[a-z]/.test(password)) {
+      errors.push("Password must contain a lowercase letter.");
+    }
+    if (!/[0-9]/.test(password)) {
+      errors.push("Password must contain a digit.");
+    }
+    if (!/[!@#$%^&*]/.test(password)) {
+      errors.push("Password must contain a special character (!@#$%^&*).");
+    }
+     // Email validation (only accept gmail, yahoo, outlook)
+     const allowedDomains = ["gmail.com", "yahoo.com", "outlook.com"];
+     const emailDomain = email.split("@")[1];
+ 
+     if (
+       !email ||
+       !email.includes("@") ||
+       !allowedDomains.includes(emailDomain)
+     ) {
+       errors.push(
+         "Email must be a valid address ending in @gmail.com, @yahoo.com, or @outlook.com."
+       );
+     }
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validateInputs();
+
+    if (validationErrors.length > 0) {
+      setError(validationErrors.join("\n"));
+      return;
+    }
+
     try {
       console.log(username, email, password);
       const res = await axios.post("http://localhost:8080/api/auth/signup", {
@@ -19,12 +71,22 @@ const SignUpPage = () => {
         email,
         password,
       });
-      console.log("signup response: ",res);
+      console.log("res: ", res);
       console.log({ username, email, password });
       navigate("/login"); // redirect to login after success
-    } catch (err) {
-      setError("Something went wrong during signup.");
+    } 
+    catch (err) {
+      if (err.response && err.response.data) {
+        const errorData = err.response.data;
+        const errorMsg = Array.isArray(errorData)
+          ? errorData.join("\n")
+          : errorData.message || "Signup failed.";
+        setError(errorMsg);
+      } else {
+        setError("Something went wrong during signup.");
+      }
     }
+    
   };
 
   return (
@@ -50,16 +112,14 @@ const SignUpPage = () => {
             src={image}
             alt="Sign up visual"
             style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderTopLeftRadius: "0.375rem",
-                borderBottomLeftRadius: "0.375rem",
-              }}
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderTopLeftRadius: "0.375rem",
+              borderBottomLeftRadius: "0.375rem",
+            }}
           />
         </div>
-
-        {/* Form Section */}
         <div
           className="w-100 w-lg-50"
           style={{ padding: "2rem", backgroundColor: "#d1d1d1" }}
