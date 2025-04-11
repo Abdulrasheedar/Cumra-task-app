@@ -105,7 +105,7 @@ const ViewSubmissionsPage = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Edit Note
+                Edit Submission
               </h5>
               <button
                 type="button"
@@ -163,7 +163,7 @@ const ViewSubmissionsPage = () => {
                 type="button"
                 className="btn btn-primary"
               >
-                Update Note
+                Update Submission
               </button>
             </div>
           </div>
