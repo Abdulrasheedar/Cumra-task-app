@@ -57,4 +57,18 @@ It allows:
 4. Run the backend:
    ./mvnw spring-boot:run
 
+### Frontend (React)
+
+1. Navigate to the frontend directory:
+   cd frontend
+
+2. Install dependencies:
+   npm install
+
+3. Create a .env file:
+   VITE_API_BASE_URL=http://localhost:8080/api
+
+4. Start the frontend:
+   npm run dev
+
 
