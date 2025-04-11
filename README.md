@@ -73,9 +73,10 @@ It allows:
 
 ## Test Credentials
 
-Role	| Username  | Password
-Admin	| adminuser	| Admin@123
-User	| testuser	| User@1234
+| Role  | Username   | Password   |
+|-------|------------|------------|
+| Admin | adminuser  | Admin@123  |
+| User  | testuser   | User@1234  |
 
 ## API Overview
 
