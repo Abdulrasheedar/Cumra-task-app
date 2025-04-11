@@ -118,3 +118,21 @@ It allows:
 ### User New Submission Page
 ![UserNewSubmission Page](./screenshots/UserNewSubmission.jpg)
 
+### User Manage Submission Page
+![UserManageSubmissions Page](./screenshots/UserManageSubmissions.jpg)
+
+
+## Admin Portal
+
+### Admin Dashboard
+![AdminDashboard Page](./screenshots/AdminDashboard.jpg)
+
+### Admin Manage Submissions Page
+![AdminManageSubmissions Page](./screenshots/AdminManageSubmissions.jpg)
+
+### Admin Manage Users Page
+![AdminManageUsers Page](./screenshots/AdminManageUsers.jpg)
+
+
+
+
