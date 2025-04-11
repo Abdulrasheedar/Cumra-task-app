@@ -75,8 +75,8 @@ It allows:
 
 | Role  | Username   | Password   |
 |-------|------------|------------|
-| Admin | adminuser  | Admin@123  |
-| User  | testuser   | User@1234  |
+| Admin | admin  | Abdul*1234  |
+| User  | abdul1   | Abdul*1234  |
 
 ## API Overview
 
