@@ -1,14 +1,14 @@
-# 📝 Cumra Task App
+# Cumra Task App
 
 A full-stack web application with **secure role-based authentication** built using React and Spring Boot.  
 It allows:
 
-- 🔐 **Users** to register, log in, and manage their own data submissions
-- 🛡️ **Admins** to manage users, update roles, and view all submissions
+- **Users** to register, log in, and manage their own data submissions
+- **Admins** to manage users, update roles, and view all submissions
 
 ---
 
-## 💻 Tech Stack
+## Tech Stack
 
 **Frontend**
 - React JS
@@ -24,9 +24,9 @@ It allows:
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
-### ✅ Backend (Spring Boot)
+### Backend (Spring Boot)
 
 1. Clone the project:
    ```bash
@@ -34,7 +34,7 @@ It allows:
    cd backend
 2. Configure DB & JWT in application.properties:
    spring.application.name=backend
-# Database Config
+### Database Config
 spring.datasource.url=jdbc:mysql://localhost:3306/cumrataskapp
 spring.datasource.username=root
 spring.datasource.password=yourpassword
@@ -43,15 +43,15 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
-# Server Port
+### Server Port
 server.port=8080
 
-# JWT Secret (Placeholder)
+### JWT Secret (Placeholder)
 app.jwtSecret = CumraSecureJWTKey_AdminUserDataFlow123456!
 app.jwtExpirationsMs = 86400000
 
 
-# CORS
+### CORS
 spring.web.cors.allowed-origins=http://localhost:5173
 
 3. Run the backend:
