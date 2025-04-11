@@ -34,7 +34,7 @@ It allows:
    cd backend
 2. Configure DB & JWT in application.properties:
    spring.application.name=backend
-   #### Database Config
+   ##### Database Config
    spring.datasource.url=jdbc:mysql://localhost:3306/cumrataskapp
    spring.datasource.username=root
    spring.datasource.password=yourpassword
