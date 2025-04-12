@@ -146,7 +146,16 @@ It allows:
 
 [Click here to watch the demo](https://youtu.be/QY6sCpnSrL0)
 
+## UML Diagrams
 
+1. Usecase Diagram
+![Backend_UsecaseDiagram](./screenshots/Backend_UsecaseDiagram.jpg)
+
+2. Class Diagram
+![Backend_ClassDiagram](./screenshots/Backend_ClassDiagram.jpg)
+
+
+4. 
 
 
 
