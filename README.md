@@ -149,19 +149,19 @@ It allows:
 ## UML Diagrams
 
 1. Usecase Diagram
-![Backend_UsecaseDiagram](./screenshots/Backend_UsecaseDiagram.jpg)
+![Backend_UsecaseDiagram](./screenshots/Backend_UsecaseDiagram.png)
 
 2. Class Diagram
-![Backend_ClassDiagram](./screenshots/Backend_ClassDiagram.jpg)
+![Backend_ClassDiagram](./screenshots/Backend_ClassDiagram.png)
 
 3. Activity Diagram (Backend Flow)
-![Backend_ActivityDiagram](./screenshots/Backend_ActivityDiagram.jpg)
+![Backend_ActivityDiagram](./screenshots/Backend_ActivityDiagram.png)
 
 4. Sequence Diagram (Login Flow)
-![SequenceDiagram](./screenshots/SequenceDiagram.jpg)
+![SequenceDiagram](./screenshots/SequenceDiagram.png)
 
 5. Component Diagram (Frontend)
-![ComponentDiagram](./screenshots/ComponentDiagram.jpg)
+![ComponentDiagram](./screenshots/ComponentDiagram.png)
 
 
 
