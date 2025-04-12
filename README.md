@@ -154,8 +154,16 @@ It allows:
 2. Class Diagram
 ![Backend_ClassDiagram](./screenshots/Backend_ClassDiagram.jpg)
 
+3. Activity Diagram (Backend Flow)
+![Backend_ActivityDiagram](./screenshots/Backend_ActivityDiagram.jpg)
 
-4. 
+4. Sequence Diagram (Login Flow)
+![SequenceDiagram](./screenshots/SequenceDiagram.jpg)
+
+5. Component Diagram (Frontend)
+![ComponentDiagram](./screenshots/ComponentDiagram.jpg)
+
+
 
 
 
