@@ -142,9 +142,11 @@ It allows:
 ### Admin Manage Users Page
 ![AdminManageUsers Page](./screenshots/AdminManageUsers.jpg)
 
+
 ## Demo Video
 
 [Click here to watch the demo](https://youtu.be/QY6sCpnSrL0)
+
 
 ## UML Diagrams
 
