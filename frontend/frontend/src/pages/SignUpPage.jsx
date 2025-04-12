@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
-import image from "../assets/Signup.png"; // same image used in login page
+import image from "../assets/Signup.png";
 import axios from "axios";
 import { validateSignup } from "../utils/Validation";
 
@@ -9,7 +9,8 @@ const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState([]);
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
@@ -19,30 +20,34 @@ const SignUpPage = () => {
     const validationErrors = validateSignup({ username, email, password });
 
     if (validationErrors.length > 0) {
-      setError(validationErrors.join("\n"));
+      setError(validationErrors);
+      setSuccess("");
       return;
     }
 
     try {
-      console.log(username, email, password);
       const res = await axios.post(`${baseURL}/auth/signup`, {
         username,
         email,
         password,
       });
-      console.log("res: ", res);
-      console.log({ username, email, password });
-      navigate("/login"); // redirect to login after success
+
+      setError([]);
+      setSuccess("Signup successful! Redirecting to login...");
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     } catch (err) {
       if (err.response && err.response.data) {
         const errorData = err.response.data;
         const errorMsg = Array.isArray(errorData)
-          ? errorData.join("\n")
-          : errorData.message || "Signup failed.";
+          ? errorData
+          : [errorData.message || "Signup failed."];
         setError(errorMsg);
       } else {
-        setError("Something went wrong during signup.");
+        setError(["Something went wrong during signup."]);
       }
+      setSuccess("");
     }
   };
 
@@ -135,9 +140,20 @@ const SignUpPage = () => {
                 Login
               </Link>
             </div>
-            {error && (
+
+            {Array.isArray(error) && error.length > 0 && (
               <Alert variant="danger" className="mt-3">
-                {error}
+                <ul className="mb-0">
+                  {error.map((err, idx) => (
+                    <li key={idx}>{err}</li>
+                  ))}
+                </ul>
+              </Alert>
+            )}
+
+            {success && (
+              <Alert variant="success" className="mt-3">
+                {success}
               </Alert>
             )}
           </Form>
