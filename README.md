@@ -102,6 +102,13 @@ It allows:
 6. DELETE /api/admin/submissions/{id}
 
 
+
+## Demo Video
+
+[Click here to watch the demo](https://youtu.be/QY6sCpnSrL0)
+
+
+
 ## Screenshots
 
 ## Authentication
@@ -143,9 +150,6 @@ It allows:
 ![AdminManageUsers Page](./screenshots/AdminManageUsers.jpg)
 
 
-## Demo Video
-
-[Click here to watch the demo](https://youtu.be/QY6sCpnSrL0)
 
 
 ## UML Diagrams
