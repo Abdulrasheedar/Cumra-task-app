@@ -4,19 +4,22 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const NavbarComponent = () => {
-  const { logout, isAuthenticated, role } = useAuth();
+  const { logout, isAuthenticated, role } = useAuth(); // Auth context to determine user status and role
   const navigate = useNavigate();
 
+  // Handle logout and redirect to login page
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  if (!isAuthenticated) return null; // Hide navbar if not logged in
+  // Do not render navbar if user is not authenticated
+  if (!isAuthenticated) return null;
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
+        {/* Brand logo or title that redirects to dashboard */}
         <Navbar.Brand
           as={NavLink}
           to= "/dashboard"
@@ -27,6 +30,7 @@ const NavbarComponent = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="me-auto">
+            {/* Admin navigation links */}
             {role === "ROLE_ADMIN" && (
               <>
                 <Nav.Link as={NavLink} to="/dashboard">
@@ -40,6 +44,7 @@ const NavbarComponent = () => {
                 </Nav.Link>
               </>
             )}
+            {/* Regular user navigation links */}
             {role === "ROLE_USER" && (
               <>
               <Nav.Link as={NavLink} to="/dashboard">
@@ -54,6 +59,7 @@ const NavbarComponent = () => {
               </>
             )}
           </Nav>
+          {/* Logout button */}
           <Button variant="outline-light" onClick={handleLogout}>
             Logout
           </Button>

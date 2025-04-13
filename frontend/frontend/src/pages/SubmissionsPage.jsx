@@ -10,6 +10,7 @@ const SubmissionsPage = () => {
   const [content, setContent] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const baseURL = import.meta.env.VITE_API_BASE_URL;
+  // Fetch all existing submissions on mount
   const fetchSubmissions = async () => {
     const res = await axios.get(`${baseURL}/user/submissions`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -20,7 +21,7 @@ const SubmissionsPage = () => {
   useEffect(() => {
     fetchSubmissions();
   }, []);
-
+  // Handle form submission (POST request)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

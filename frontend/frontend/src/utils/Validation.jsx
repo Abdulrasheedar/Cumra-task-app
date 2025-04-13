@@ -1,3 +1,5 @@
+
+// Validates user input during signup
 export const validateSignup = ({ username, email, password }) => {
     const errors = [];
   

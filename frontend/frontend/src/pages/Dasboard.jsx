@@ -9,10 +9,12 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { text, getText, getUsers, users, getSubmissions, submissions } =
     useContext(SubmissionsContext);
+   
+  // Fetch data once component mounts  
   useEffect(() => {
-    getText();
-    getUsers();
-    getSubmissions();
+    getText(); // Get logged-in user's submissions
+    getUsers(); // Get all users (for admin)
+    getSubmissions(); // Get all submissions (for admin)
   }, []);
   return (
     <div
@@ -20,6 +22,7 @@ const Dashboard = () => {
     >
       {role === "ROLE_ADMIN" ? (
         <>
+        {/* Admin Dashboard Welcome Section */}
           <div
             className="py-4"
             style={{ padding: "100px", marginTop: "120px" }}
@@ -28,6 +31,7 @@ const Dashboard = () => {
               Welcome to your Admin Dashboard, <b>{username}</b>!
             </h2>
           </div>
+          {/* Admin Stats Cards */}
           <div className="container text-center">
             <div className="d-flex gap-4 mb-4 flex-wrap">
               <Card className="text-center p-4" style={{ width: "500px" }}>
@@ -70,6 +74,8 @@ const Dashboard = () => {
                 </div>
               </Card>
             </div>
+
+            {/* Admin Users Table */}
             <div className="mt-5"></div>
             <div className="mt-5">
               <h3>All Registered Users</h3>
@@ -102,6 +108,7 @@ const Dashboard = () => {
         </>
       ) : (
         <>
+        {/* Regular User Dashboard */}
           <div
             className="py-4"
             style={{ padding: "100px", marginTop: "120px" }}
@@ -111,6 +118,7 @@ const Dashboard = () => {
               <h2>
                 Welcome to your Dashboard, <b>{username}</b>!
               </h2>
+              {/* User Submission Count */}
               <Card className="text-center p-4" style={{ width: "1000px" }}>
                 <h5>Total Submissions</h5>
                 <div
@@ -131,7 +139,7 @@ const Dashboard = () => {
                 </div>
               </Card>
             </div>
-
+            {/* Button to Submit New Entry */}        
             <Button
               style={{
                 width: "300px",

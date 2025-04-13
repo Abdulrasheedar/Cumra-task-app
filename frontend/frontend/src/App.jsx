@@ -22,17 +22,28 @@ return(
   <>
   
   <BrowserRouter>
+  {/* Provide global authentication context */}
     <AuthProvider>
+      {/* Provide global submissions context */}
       <SubmissionsState >
+      {/* Navigation bar visible only when authenticated */}
       <Navbar />
       <Routes>
+        {/* Public Routes */}
         <Route path="/login" element={<LoginPage/>} />
         <Route path="signup" element={<SignUpPage/>} />
+        
+        {/* Protected Route: Only accessible by ROLE_USER */}
         <Route path="/submissions" element = {<UserRoute><SubmissionsPage /></UserRoute>} />
+        
+        {/* Protected Route: Accessible by ROLE_USER and ROLE_ADMIN */}
         <Route path="/viewsubmissions" element = {<PrivateRoute><ViewSubmissionsPage /></PrivateRoute>} />
         <Route path="/dashboard" element = {<PrivateRoute><Dasboard /></PrivateRoute>} />
+        
+        {/* Admin-Only Route */}
         <Route path="/manageusers" element = {<AdminRoute><ManageUsersPage /></AdminRoute>} />
 
+        {/* Redirect unknown paths to login */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
       </SubmissionsState>

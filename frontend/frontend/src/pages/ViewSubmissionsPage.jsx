@@ -4,6 +4,7 @@ import SubmissionsContext from "../context/submissions/SubmissionsContext";
 import { useAuth } from "../context/AuthContext";
 
 const ViewSubmissionsPage = () => {
+  // Extract API methods and state from context
   const {
     text,
     getText,
@@ -25,13 +26,13 @@ const ViewSubmissionsPage = () => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [showUpdateAlert, setShowUpdateAlert] = useState(false);
   const { role } = useAuth();
-
+// Fetch all required data on component mount
   useEffect(() => {
     getUsers();
     getText();
     getSubmissions();
   }, []);
-
+  // Prepare user submission data for editing (for ROLE_USER)
   const updateText = (currentText) => {
     ref.current.click();
     setNote({
@@ -40,7 +41,7 @@ const ViewSubmissionsPage = () => {
       econtent: currentText.content,
     });
   };
-
+ // Prepare admin submission data for editing
   const updateSubmission = (currentText) => {
     ref.current.click();
     setSubmission({
@@ -49,6 +50,8 @@ const ViewSubmissionsPage = () => {
       econtent: currentText.content,
     });
   };
+
+  // Handle submission update (admin or user)
   const handleClick = () => {
     if (role === "ROLE_ADMIN") {
       editSubmission(submission.id, submission.etitle, submission.econtent);
@@ -60,16 +63,18 @@ const ViewSubmissionsPage = () => {
     triggerUpdateAlert();
   };
 
+   // Handle input change for both user/admin update
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
     setSubmission({ ...submission, [e.target.name]: e.target.value });
   };
 
+  // Show delete alert for 3 seconds
   const triggerDeleteAlert = () => {
     setShowDeleteAlert(true);
     setTimeout(() => setShowDeleteAlert(false), 3000);
   };
-
+  // Show update alert for 3 seconds
   const triggerUpdateAlert = () => {
     setShowUpdateAlert(true);
     setTimeout(() => setShowUpdateAlert(false), 3000);

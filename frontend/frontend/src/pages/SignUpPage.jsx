@@ -26,6 +26,7 @@ const SignUpPage = () => {
     }
 
     try {
+      // Send signup request to backend
       const res = await axios.post(`${baseURL}/auth/signup`, {
         username,
         email,
@@ -38,6 +39,7 @@ const SignUpPage = () => {
         navigate("/login");
       }, 3000);
     } catch (err) {
+      // Handle backend validation or system errors
       if (err.response && err.response.data) {
         const errorData = err.response.data;
         const errorMsg = Array.isArray(errorData)

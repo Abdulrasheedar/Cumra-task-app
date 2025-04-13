@@ -7,6 +7,7 @@ import image from "../assets/Login.png";
 
 
 const LoginPage = () => {
+  // State for form inputs and error messages
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,13 +17,16 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Call backend login endpoint
       const res = await axios.post(`${baseURL}/auth/login`, {
         username,
         password,
       });
+      // Store JWT token, user role, and username in context/localStorage
       login(res.data.token, res.data.roles[0], username);
       navigate("/dashboard");
     } catch (err) {
+      // Show error message on login failure
       setError("Invalid credentials");
     }
   };
@@ -36,6 +40,8 @@ const LoginPage = () => {
     backgroundColor: "grey",
   }}
 >
+
+  {/* Card container with image and login form */}
   <div
     className="card mb-5 d-flex flex-column flex-lg-row"
     style={{
@@ -45,6 +51,7 @@ const LoginPage = () => {
       boxShadow: "0 0 10px rgba(0,0,0,0.1)",
     }}
   >
+
     <div className="w-100 w-lg-50">
       <img
         src={image}
@@ -59,7 +66,7 @@ const LoginPage = () => {
       />
     </div>
 
-    {/* Form Section */}
+    {/*login form */}
     <div
       className="w-100 w-lg-50"
       style={{ padding: "2rem", backgroundColor: "#d1d1d1" }}

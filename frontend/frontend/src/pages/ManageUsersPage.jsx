@@ -9,9 +9,10 @@ const ManageUsersPage = () => {
     const { userId } = useAuth();
 
   useEffect(() => {
-    getUsers();
+    getUsers(); // Fetch all users when the component mounts
   }, []);
 
+  // Handle deletion of a user
   const handleDelete = async (id) => {
     if (role === "ROLE_ADMIN") {
       const confirmDelete = window.confirm(
