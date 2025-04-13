@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.cumra.backend.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+// This class is a custom implementation of Spring Security's UserDetails interface.
+// It adapts the application's User entity to the format expected by Spring Security.
 public class UserDetailsImpl implements UserDetails{
 	
 	private Long id;
@@ -30,8 +32,9 @@ public class UserDetailsImpl implements UserDetails{
 		this.authorities = authorities;
 	}
 	
-	// Static factory method to build UserDetailsImpl from our User entity:
+	// Static factory method to build UserDetailsImpl from the User entity:
 	public static UserDetailsImpl build(User user) {
+		// Convert user's roles into a list of GrantedAuthority
 		List<GrantedAuthority> auths = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());

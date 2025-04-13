@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+//DTO class for capturing login request payload
 @Data
 public class LoginRequest {
 

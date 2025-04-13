@@ -35,25 +35,25 @@ public class SecurityConfig {
     
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
-    	return config.getAuthenticationManager();
+    	return config.getAuthenticationManager(); // Provide the default AuthenticationManager
     }
     
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setUserDetailsService(userDetailsService); // Inject our custom user details service
+        authProvider.setPasswordEncoder(passwordEncoder()); // Use BCrypt for password hashing
         return authProvider;
     }
     
     @Bean 
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // Encode passwords with BCrypt algorithm
     }
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // We create our JWT filter instance (defined below) 
+        // Custom JWT filter 
         JwtAuthTokenFilter jwtFilter = new JwtAuthTokenFilter(jwtUtils, userDetailsService);
         
         http.cors() 
@@ -62,16 +62,16 @@ public class SecurityConfig {
             .exceptionHandling(eh -> eh.authenticationEntryPoint(unauthorizedHandler))  // handle auth errors
             .authorizeHttpRequests(auth -> {
                 auth.requestMatchers("/api/auth/**").permitAll();   // public auth endpoints
-                auth.requestMatchers("/api/admin/**").hasRole("ADMIN");   // admin-only
-                auth.requestMatchers("/api/user/**").hasAnyRole("USER","ADMIN"); // logged-in users
-                auth.anyRequest().authenticated();  // any other endpoints require auth
+                auth.requestMatchers("/api/admin/**").hasRole("ADMIN");   // Only accessible to ADMIN
+                auth.requestMatchers("/api/user/**").hasAnyRole("USER","ADMIN"); // Accessible to USER and ADMIN
+                auth.anyRequest().authenticated();  // All other routes require authentication
             });
         
         // Add JWT filter before the default UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        // Also set our authenticationProvider
+        // Set the custom authentication provider
         http.authenticationProvider(authenticationProvider());
-        
+        // Build and return the SecurityFilterChain
         return http.build();
     }
     

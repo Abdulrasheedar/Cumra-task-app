@@ -3,8 +3,11 @@ package com.cumra.backend.dto;
 import java.util.List;
 import lombok.*;
 
+
+//DTO class for sending JWT response after successful login
 public class JwtResponse {
 
+	
 	private String token;
     private String type = "Bearer";
     private String username;

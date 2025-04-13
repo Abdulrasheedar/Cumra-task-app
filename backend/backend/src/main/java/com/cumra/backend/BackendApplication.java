@@ -13,15 +13,17 @@ import com.cumra.backend.repository.RoleRepository;
 public class BackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackendApplication.class, args);
+		SpringApplication.run(BackendApplication.class, args); // Start the Spring Boot application
 	}
 
 	@Bean
     CommandLineRunner initRoles(RoleRepository roleRepository) {
         return args -> {
+        	// If ROLE_USER does not exist, save it to the DB
             if (roleRepository.findByName(ERole.ROLE_USER).isEmpty()) {
                 roleRepository.save(new Role(ERole.ROLE_USER));
             }
+            // If ROLE_ADMIN does not exist, save it to the DB
             if (roleRepository.findByName(ERole.ROLE_ADMIN).isEmpty()) {
                 roleRepository.save(new Role(ERole.ROLE_ADMIN));
             }

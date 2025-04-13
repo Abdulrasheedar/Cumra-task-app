@@ -43,8 +43,8 @@ public class AdminController {
     // Get list of all users
     @GetMapping("/users")
     public List<UserResponse> listUsers() {
-        List<User> users = userRepo.findAll();
-        // Convert to DTO to avoid exposing passwords
+        List<User> users = userRepo.findAll();// Fetch all users from DB
+        // Map User entities to UserResponse DTOs (excluding sensitive data like passwords)
         return users.stream().map(user -> new UserResponse(
                 user.getId(), user.getUsername(), user.getEmail(),
                 user.getRoles().stream().map(role -> role.getName().name()).toList()
@@ -57,13 +57,14 @@ public class AdminController {
         if (!userRepo.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User not found"));
         }
-        userRepo.deleteById(id);
+        userRepo.deleteById(id); // Delete user if exists
         return ResponseEntity.ok(new MessageResponse("User deleted successfully"));
     }
     
     // Get all submissions (from all users)
     @GetMapping("/submissions")
     public List<SubmissionResponse> listAllSubmissions() {
+    	// Fetch and map submissions to DTOs with userId included
         return submissionRepo.findAll().stream()
             .map(sub -> new SubmissionResponse(
                 sub.getId(),
@@ -74,7 +75,7 @@ public class AdminController {
             ))
             .toList();
     }
-    //update user role
+    // Update user roles (promote/demote)
     @PutMapping("/users/roles/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateUserRoles(
@@ -84,7 +85,7 @@ public class AdminController {
         User user = userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<Role> roles = roleRepo.findAllById(request.getRoleIds());
+        List<Role> roles = roleRepo.findAllById(request.getRoleIds());  // Fetch new roles
 
         if (roles.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid role IDs provided.");
@@ -99,14 +100,14 @@ public class AdminController {
             return ResponseEntity.badRequest().body("You cannot remove your own admin role.");
         }
 
-        user.setRoles(new HashSet<>(roles));
-        userRepo.save(user);
+        user.setRoles(new HashSet<>(roles)); // Apply new roles
+        userRepo.save(user); // Persist changes
 
         return ResponseEntity.ok("User roles updated successfully.");
     }
 
 
-
+    // Update a submission (admin or owner allowed)
     @PutMapping("/submissions/{id}")
     public ResponseEntity<?> updateSubmission(
             @PathVariable Long id,
@@ -126,9 +127,9 @@ public class AdminController {
                     .body(new MessageResponse("You can only update your own submissions"));
         }
 
-        submission.setTitle(request.getTitle());
-        submission.setContent(request.getContent());
-        submissionRepo.save(submission);
+        submission.setTitle(request.getTitle()); // Update title
+        submission.setContent(request.getContent()); // Update content
+        submissionRepo.save(submission); // Save changes
 
         return ResponseEntity.ok(new MessageResponse("Submission updated successfully"));
     }
@@ -141,7 +142,7 @@ public class AdminController {
         if (!submissionRepo.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Submission not found"));
         }
-        submissionRepo.deleteById(id);
+        submissionRepo.deleteById(id); // Delete the submission
         return ResponseEntity.ok(new MessageResponse("Submission deleted"));
     }
 }

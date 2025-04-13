@@ -2,6 +2,8 @@ package com.cumra.backend.dto;
 
 import java.util.List;
 
+// DTO for sending user information to the client,
+// mainly used in admin responses to display user data.
 public class UserResponse {
 
     private Long id;
