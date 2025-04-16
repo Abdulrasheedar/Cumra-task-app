@@ -65,7 +65,7 @@ It allows:
 2. Install dependencies:
    npm install
 
-3. Create a .env file:
+3. Create a .env file and add this:
    VITE_API_BASE_URL=http://localhost:8080/api
 
 4. Start the frontend:
