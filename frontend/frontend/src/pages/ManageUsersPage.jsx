@@ -6,7 +6,7 @@ const ManageUsersPage = () => {
   const { role } = useAuth();
   const { users, getUsers, deleteUser, toggleAdminRole } =
     useContext(SubmissionsContext);
-    const { userId } = useAuth();
+  const { userId } = useAuth();
 
   useEffect(() => {
     getUsers(); // Fetch all users when the component mounts
@@ -76,16 +76,33 @@ const ManageUsersPage = () => {
                             isAdmin ? "btn-secondary" : "btn-warning"
                           }`}
                           onClick={() => toggleAdminRole(user.id, user.roles)}
-                          disabled={user.username === localStorage.getItem("username")}
+                          disabled={
+                            user.username === localStorage.getItem("username")
+                          }
                         >
                           {isAdmin ? "Demote to User" : "Promote to Admin"}
                         </button>
                       </td>
                       <td>
                         <i
-                          className="fa-solid fa-trash text-danger"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => handleDelete(user.id)}
+                          className={`fa-solid fa-trash ${
+                            user.username === localStorage.getItem("username")
+                              ? "text-secondary"
+                              : "text-danger"
+                          }`}
+                          style={{
+                            cursor:
+                              user.username === localStorage.getItem("username")
+                                ? "not-allowed"
+                                : "pointer",
+                          }}
+                          onClick={() => {
+                            if (
+                              user.username !== localStorage.getItem("username")
+                            ) {
+                              handleDelete(user.id);
+                            }
+                          }}
                         ></i>
                       </td>
                     </tr>
